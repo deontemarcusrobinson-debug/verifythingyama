@@ -1,0 +1,401 @@
+/* eVerify — faithful fixed-width recreation of aotc.sph.rutgers.edu/eVerify01.php */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #3faff5;
+  font-family: Arial, Georgia, "Times New Roman", serif;
+  color: #000000;
+}
+
+/* Wrapper: fixed 957 x 645, bright blue like the real site */
+.mtWrapper {
+  position: relative;
+  width: 957px;
+  height: 645px;
+  margin: 0 auto;
+  text-align: left;
+  border-radius: 6px;
+  box-shadow: 0 1px 10px #333;
+  background-color: #3faff5;
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 957px;
+  height: 135px;
+  border-radius: 6px 6px 0 0;
+  background-color: #1d8ecc;
+}
+
+.header-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 686px;
+  height: 135px;
+  display: block;
+}
+
+/* ---------- Login box (in the blue area to the right of the image) ---------- */
+.login {
+  position: absolute;
+  top: 5px;
+  left: 685px;
+  width: 265px;
+  height: 125px;
+  border: 1px solid #000000;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 1px 10px #333;
+  background-color: #f0f0f0;
+  z-index: 25;
+}
+
+.login form {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.login-title {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #990000;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.login-label {
+  position: absolute;
+  left: 2px;
+  width: 75px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.login-label-email { top: 28px; }
+.login-label-pass { top: 52px; }
+
+.login-input {
+  position: absolute;
+  left: 82px;
+  width: 176px;
+  height: 20px;
+  border: 1px solid #c8c8c8;
+  background-color: #e8e8e8;
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.login-input-email { top: 28px; }
+.login-input-pass { top: 52px; }
+
+.login-submit {
+  position: absolute;
+  top: 76px;
+  right: 6px;
+  width: 45px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.login-submit img { display: block; }
+
+.login-rule {
+  position: absolute;
+  top: 98px;
+  left: 2px;
+  width: 258px;
+  height: 2px;
+  background-color: #990000;
+}
+
+.login-forgot {
+  position: absolute;
+  top: 103px;
+  left: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-forgot input { margin: 0; }
+
+/* ---------- Navigation bar ---------- */
+.navbar {
+  position: absolute;
+  top: 137px;
+  left: 0;
+  width: 957px;
+  height: 22px;
+  background-color: #000000;
+  background-image: url("images/backImage.png");
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 957px 37px;
+  z-index: 30;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  height: 22px;
+}
+
+.menu > li {
+  position: relative;
+}
+
+.menu > li + li::before {
+  content: "|";
+  color: #ffffff;
+  font-size: 12px;
+  padding: 0 1px;
+}
+
+.menu a {
+  display: inline-block;
+  padding: 0 8px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+.menu a.current {
+  color: #ff3333;
+}
+
+.menu a.nav-outreach {
+  color: #ff0000;
+}
+
+/* Dropdowns */
+.sub {
+  list-style: none;
+  margin: 0;
+  padding: 3px 0;
+  position: absolute;
+  top: 22px;
+  left: 0;
+  min-width: 215px;
+  background-color: #cbcbef;
+  border: 1px solid #8a8ac0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+.has-sub:hover > .sub {
+  display: block;
+}
+
+.sub li {
+  border-bottom: 1px solid #b6b6e0;
+}
+
+.sub li:last-child { border-bottom: none; }
+
+.sub a {
+  display: block;
+  padding: 5px 10px;
+  line-height: 1.3;
+  color: #000080;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: normal;
+}
+
+.sub a:hover {
+  background-color: #ffffff;
+  text-decoration: underline;
+}
+
+.contact-mail {
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.contact-mail a {
+  display: inline;
+  padding: 0;
+  color: #3333ff;
+}
+
+/* ---------- Left sidebar ---------- */
+.sidebar {
+  position: absolute;
+  top: 180px;
+  left: 10px;
+  width: 200px;
+  height: 425px;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 1px 10px #333;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.ri_Header {
+  width: 200px;
+  height: 25px;
+  line-height: 25px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4193cd;
+}
+
+.sbText {
+  padding: 10px;
+  color: #000000;
+  text-align: justify;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---------- eVerify panel ---------- */
+.panel {
+  position: absolute;
+  top: 180px;
+  left: 222px;
+  width: 722px;
+  height: 425px;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 1px 10px #333;
+  background-color: #f0f0f0;
+}
+
+.everify-box {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 685px;
+  min-height: 197px;
+  border: 1px solid #000000;
+  padding: 12px 12px 20px;
+}
+
+.everify-title {
+  margin: 4px 0 30px;
+  color: #990000;
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px 12px;
+  min-height: 25px;
+}
+
+.form-label {
+  width: 165px;
+  color: #990000;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 125px;
+  height: 25px;
+  border: 1px solid #d8d8d8;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 5px;
+}
+
+.form-hint {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.verify-btn-wrap {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.verify-btn {
+  width: 105px;
+  height: 22px;
+  border: 1px solid #c7c8c9;
+  border-radius: 6px;
+  box-shadow: 0 1px 10px #333;
+  background-color: #990000;
+  color: #f0f0f0;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.verify-btn:hover { filter: brightness(1.1); }
+
+.result {
+  margin: 16px 12px 0;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  border: 1px solid #bbb;
+  background: #ffffff;
+}
+
+.result.success {
+  border-color: #2e7d32;
+  background: #e8f5e9;
+}
+
+.result.error {
+  border-color: #c62828;
+  background: #ffebee;
+  white-space: pre-line;
+}
+
+/* ---------- Footer ---------- */
+.footer-bar {
+  position: absolute;
+  top: 610px;
+  left: 10px;
+  width: 925px;
+  height: 22px;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 1px 10px #333;
+  background-color: #4193cd;
+}
